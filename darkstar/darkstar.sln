@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30915.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "console", "console\console.vcxproj", "{6250EFB7-BD7F-49FE-B7E0-5D3F99D47107}"
 EndProject
@@ -113,5 +113,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EA9B472F-C2F5-4086-B519-8189D3DB1340} = {28A3B570-9525-4332-B1F6-96D5C0484E77}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {364DBC3A-F0AB-4E4F-A908-3133DDC2FD96}
 	EndGlobalSection
 EndGlobal

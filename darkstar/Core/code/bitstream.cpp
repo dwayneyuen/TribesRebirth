@@ -3,6 +3,7 @@
 #include "m_trig.h"
 #include "tVector.h"
 #include <ctype.h>
+#include <cmath>
 
 // dummy class for writing vectors
 class Point3F

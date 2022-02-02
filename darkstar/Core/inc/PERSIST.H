@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <types.h>   // must include this before typeinfo.h for MSVC
-#include <typeinfo.h>
+#include <typeinfo>
 #include <blkstrm.h>
 #include <memstrm.h>
 #include <tVector.h>
