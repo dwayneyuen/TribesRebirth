@@ -1,0 +1,54 @@
+# Rules in this file were initially inferred by Visual Studio IntelliCode from the C:\Users\Dwayne\source\repos\TribesRebirth\program codebase based on best match to current usage at 2/1/2022
+# You can modify the rules from these initially generated values to suit your own policies
+# You can learn more about editorconfig here: https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference
+[*.cs]
+
+
+#Core editorconfig formatting - indentation
+
+#use soft tabs (spaces) for indentation
+indent_style = space
+
+#Formatting - new line options
+
+#place else statements on a new line
+csharp_new_line_before_else = true
+#require braces to be on a new line for methods and properties (also known as "Allman" style)
+csharp_new_line_before_open_brace = methods, properties
+
+#Formatting - spacing options
+
+#require NO space after a keyword in a control flow statement such as a for loop
+csharp_space_after_keywords_in_control_flow_statements = false
+#ignore spaces around binary operators
+csharp_space_around_binary_operators = ignore
+#remove space within empty argument list parentheses
+csharp_space_between_method_call_empty_parameter_list_parentheses = false
+#remove space between method call name and opening parenthesis
+csharp_space_between_method_call_name_and_opening_parenthesis = false
+#do not place space characters after the opening parenthesis and before the closing parenthesis of a method call
+csharp_space_between_method_call_parameter_list_parentheses = false
+#remove space within empty parameter list parentheses for a method declaration
+csharp_space_between_method_declaration_empty_parameter_list_parentheses = false
+#place a space character after the opening parenthesis and before the closing parenthesis of a method declaration parameter list.
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+
+#Formatting - wrapping options
+
+#leave statements and member declarations on the same line
+csharp_preserve_single_line_statements = true
+
+#Style - Code block preferences
+
+#prefer no curly braces if allowed
+csharp_prefer_braces = false:suggestion
+
+#Style - expression level options
+
+#prefer the language keyword for member access expressions, instead of the type name, for types that have a keyword to represent them
+dotnet_style_predefined_type_for_member_access = true:suggestion
+
+#Style - Miscellaneous preferences
+
+#prefer local functions over anonymous functions
+csharp_style_pattern_local_over_anonymous_function = true:suggestion

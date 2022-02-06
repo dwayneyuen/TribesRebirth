@@ -35,7 +35,7 @@ float Vehicle::prefVehicleShadowSize = 40;
 static int ScriptCollisionMask = 
 			SimPlayerObjectType | 
 			VehicleObjectType |
-      	StaticObjectType |
+      		StaticObjectType |
 			MineObjectType |
 			ItemObjectType;
 

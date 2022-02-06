@@ -5,5 +5,7 @@ public:
 	static float prefShapeDetail;
 	static float prefPlayerShadowSize;
 	static bool prefFreeLook;
-	static const DWORD 
+	//static const DWORD csm_respawnEffectTime;
+
+	TMat3F* getEyeTransform();
 };

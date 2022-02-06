@@ -13,7 +13,8 @@
 #pragma warning(disable : 4101)
 #endif
 
-#include <typeinfo.h>
+//#include <typeinfo.h>
+#include <typeinfo>
 
 #include <ts.h>
 #include <sim.h>

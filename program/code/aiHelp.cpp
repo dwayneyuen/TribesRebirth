@@ -11,6 +11,7 @@
 
 #include "fearGlobals.h"
 #include "aiObj.h"
+#include "FearPlugin.cpp"
 
 
 //----------------------------------------------------------------------------
@@ -37,8 +38,6 @@ Player * AIObj::Target::findPlayerObj(void)
       return AIObj::findPlayerObject( playerId );
    return 0;
 }
-
-
 
 
 AIObj::Directive::Directive()  :  pos(0,0,0) 

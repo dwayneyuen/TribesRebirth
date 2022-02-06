@@ -518,4 +518,57 @@
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\aiObj.h" />
+    <ClInclude Include="inc\AIPlugin.h" />
+    <ClInclude Include="inc\banlist.h" />
+    <ClInclude Include="inc\chatmenu.h" />
+    <ClInclude Include="inc\commonEditor.strings.h" />
+    <ClInclude Include="inc\cpuSpeed.h" />
+    <ClInclude Include="inc\darkstar.strings.h" />
+    <ClInclude Include="inc\datablockmanager.h" />
+    <ClInclude Include="inc\Debris.h" />
+    <ClInclude Include="inc\decalmanager.h" />
+    <ClInclude Include="inc\dlgPlay.h" />
+    <ClInclude Include="inc\explosion.h" />
+    <ClInclude Include="inc\fear.strings.h" />
+    <ClInclude Include="inc\fearCSDelegate.h" />
+    <ClInclude Include="inc\fearDcl.h" />
+    <ClInclude Include="inc\feardynamicdataplugin.h" />
+    <ClInclude Include="inc\fearGlobals.h" />
+    <ClInclude Include="inc\fearGuiCFGButton.h" />
+    <ClInclude Include="inc\fearGuiHudCtrl.h" />
+    <ClInclude Include="inc\fearGuiServerList.h" />
+    <ClInclude Include="inc\fearguishapeview.h" />
+    <ClInclude Include="inc\FearGuiTSCommander.h" />
+    <ClInclude Include="inc\fearPlayerPsc.h" />
+    <ClInclude Include="inc\FearPlugin.h" />
+    <ClInclude Include="inc\flier.h" />
+    <ClInclude Include="inc\gamebase.h" />
+    <ClInclude Include="inc\interiorShape.h" />
+    <ClInclude Include="inc\moveable.h" />
+    <ClInclude Include="inc\Player.h" />
+    <ClInclude Include="inc\PlayerManager.h" />
+    <ClInclude Include="inc\projectile.h" />
+    <ClInclude Include="inc\projectileFactory.h" />
+    <ClInclude Include="inc\ProjTargetLaser.h" />
+    <ClInclude Include="inc\sensor.h" />
+    <ClInclude Include="inc\sensorManager.h" />
+    <ClInclude Include="inc\sfx.strings.h" />
+    <ClInclude Include="inc\simDLLObject.h" />
+    <ClInclude Include="inc\simtrigger.h" />
+    <ClInclude Include="inc\sky.h" />
+    <ClInclude Include="inc\smokePuff.h" />
+    <ClInclude Include="inc\snowfall.h" />
+    <ClInclude Include="inc\sound.h" />
+    <ClInclude Include="inc\StarField.h" />
+    <ClInclude Include="inc\staticBase.h" />
+    <ClInclude Include="inc\tsfx.h" />
+    <ClInclude Include="inc\turret.h" />
+    <ClInclude Include="inc\vehicle.h" />
+    <ClInclude Include="inc\version.h" />
+    <ClInclude Include="inc\partDebris.h" />
+    <ClInclude Include="inc\itemObjectTypes.h" />
+    <ClInclude Include="inc\Item.h" />
+  </ItemGroup>
 </Project>

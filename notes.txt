@@ -1,0 +1,27 @@
+main.cpp
+- FearGame::serverProcess
+- FearGame::clientProcess
+    - grp->processEvent
+
+- playerUpdate.cpp
+    - Player::updateMove
+
+- sub_4BA640 - Player::updateMove???
+
+TMat3F
+- m_mat3.h
+
+simMovement.cpp, simMovement.h
+
+
+Ski bug?
+- SimMovement::setPosition
+- SimMovement::stepPosition
+
+playerUpdate.cpp
+- Player::processCollision
+    - collisionList.push_back
+
+simMovement.cpp
+- SimMovement::processCollision
+    - collisionList.push_back

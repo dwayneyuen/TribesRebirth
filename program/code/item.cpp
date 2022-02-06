@@ -32,7 +32,7 @@
 
 //----------------------------------------------------------------------------
 
-IMPLEMENT_PERSISTENT_TAGS( Item, FOURCC('I','T','E','M'), ItemPersTag );
+IMPLEMENT_PERSISTENT_TAGS(Item, FOURCC('I', 'T', 'E', 'M'), ItemPersTag);
 
 static const float ItemRotationSpeed = 3.0f;
 static const float ItemUpdatePosTime = 1.0f;
@@ -42,26 +42,26 @@ static const float ItemThrowBlackout = 1.0f;
 //----------------------------------------------------------------------------
 
 // Objects we normally collide with
-static int ServerCollisionMask = 
-			SimPlayerObjectType | 
-			VehicleObjectType |
-      	SimTerrainObjectType |
-      	SimInteriorObjectType |
-      	StaticObjectType |
-      	MoveableObjectType;
+static int ServerCollisionMask =
+SimPlayerObjectType |
+VehicleObjectType |
+SimTerrainObjectType |
+SimInteriorObjectType |
+StaticObjectType |
+MoveableObjectType;
 
-static int ClientCollisionMask = 
-			SimPlayerObjectType | 
-			VehicleObjectType | 
-      	SimTerrainObjectType |
-      	SimInteriorObjectType |
-      	StaticObjectType |
-      	MoveableObjectType;
+static int ClientCollisionMask =
+SimPlayerObjectType |
+VehicleObjectType |
+SimTerrainObjectType |
+SimInteriorObjectType |
+StaticObjectType |
+MoveableObjectType;
 
 // Objects for which we invoke the script collision callback
-static int ScriptCollisionMask = 
-			VehicleObjectType | SimPlayerObjectType | 
-      	StaticObjectType | MineObjectType;
+static int ScriptCollisionMask =
+VehicleObjectType | SimPlayerObjectType |
+StaticObjectType | MineObjectType;
 
 
 //----------------------------------------------------------------------------
@@ -82,10 +82,10 @@ Item::ItemData::ItemData()
 	lightType = Item::NoLight;
 	lightRadius = 3;
 	lightTime = 1.5;
-	lightColor.set(1,1,1);
+	lightColor.set(1, 1, 1);
 	//
 	description = stringTable.insert("Item", true);
-   typeString = stringTable.insert("z----"); // make it sort by default last
+	typeString = stringTable.insert("z----"); // make it sort by default last
 	hudIcon = 0;
 	showInventory = true;
 	showWeaponBar = false;
@@ -93,7 +93,7 @@ Item::ItemData::ItemData()
 }
 
 
-void Item::ItemData::pack(BitStream *stream)
+void Item::ItemData::pack(BitStream* stream)
 {
 	Parent::pack(stream);
 
@@ -106,19 +106,19 @@ void Item::ItemData::pack(BitStream *stream)
 	stream->write(friction);
 	stream->write(elasticity);
 
-   stream->writeString(hudIcon);
+	stream->writeString(hudIcon);
 	stream->writeFlag(showInventory);
 	stream->writeFlag(showWeaponBar);
 	stream->writeFlag(hiliteOnActive);
-   stream->writeString(typeString);
+	stream->writeString(typeString);
 
 	stream->write(lightType);
 	stream->write(lightRadius);
 	stream->write(lightTime);
-	stream->write(sizeof(lightColor),&lightColor);
+	stream->write(sizeof(lightColor), &lightColor);
 }
 
-void Item::ItemData::unpack(BitStream *stream)
+void Item::ItemData::unpack(BitStream* stream)
 {
 	Parent::unpack(stream);
 
@@ -132,50 +132,50 @@ void Item::ItemData::unpack(BitStream *stream)
 	stream->read(&elasticity);
 
 	char buf[256];
-   stream->readString(buf);
-   hudIcon = stringTable.insert(buf);
+	stream->readString(buf);
+	hudIcon = stringTable.insert(buf);
 	showInventory = stream->readFlag();
 	showWeaponBar = stream->readFlag();
 	hiliteOnActive = stream->readFlag();
-   typeString = stream->readSTString(true);
+	typeString = stream->readSTString(true);
 
 	stream->read(&lightType);
 	stream->read(&lightRadius);
 	stream->read(&lightTime);
-	stream->read(sizeof(lightColor),&lightColor);
+	stream->read(sizeof(lightColor), &lightColor);
 }
 
-bool Item::ItemData::preload(ResourceManager *rm, bool server, char errorBuffer[256])
+bool Item::ItemData::preload(ResourceManager* rm, bool server, char errorBuffer[256])
 {
-   if(hudIcon && hudIcon[0])
-   {
-      char iconBmpName[256];
-      sprintf(iconBmpName, "lr_%s_on.bmp", hudIcon);
-      hudLROnBitmap = rm->load(iconBmpName);
-      if(bool(hudLROnBitmap))
-         hudLROnBitmap->attribute |= BMA_TRANSPARENT;
-            
-      sprintf(iconBmpName, "lr_%s_off.bmp", hudIcon);
-      hudLROffBitmap = rm->load(iconBmpName);
-      if(bool(hudLROffBitmap))
-         hudLROffBitmap->attribute |= BMA_TRANSPARENT;
-      
-      sprintf(iconBmpName, "I_%s_on.bmp", hudIcon);
-      hudIOnBitmap = rm->load(iconBmpName);
-      if(bool(hudIOnBitmap))
-         hudIOnBitmap->attribute |= BMA_TRANSPARENT;
-      
-      sprintf(iconBmpName, "I_%s_off.bmp", hudIcon);
-      hudIOffBitmap = rm->load(iconBmpName);
-      if(bool(hudIOffBitmap))
-         hudIOffBitmap->attribute |= BMA_TRANSPARENT;
-   }
-   return Parent::preload(rm, server, errorBuffer);
+	if (hudIcon && hudIcon[0])
+	{
+		char iconBmpName[256];
+		sprintf(iconBmpName, "lr_%s_on.bmp", hudIcon);
+		hudLROnBitmap = rm->load(iconBmpName);
+		if (bool(hudLROnBitmap))
+			hudLROnBitmap->attribute |= BMA_TRANSPARENT;
+
+		sprintf(iconBmpName, "lr_%s_off.bmp", hudIcon);
+		hudLROffBitmap = rm->load(iconBmpName);
+		if (bool(hudLROffBitmap))
+			hudLROffBitmap->attribute |= BMA_TRANSPARENT;
+
+		sprintf(iconBmpName, "I_%s_on.bmp", hudIcon);
+		hudIOnBitmap = rm->load(iconBmpName);
+		if (bool(hudIOnBitmap))
+			hudIOnBitmap->attribute |= BMA_TRANSPARENT;
+
+		sprintf(iconBmpName, "I_%s_off.bmp", hudIcon);
+		hudIOffBitmap = rm->load(iconBmpName);
+		if (bool(hudIOffBitmap))
+			hudIOffBitmap->attribute |= BMA_TRANSPARENT;
+	}
+	return Parent::preload(rm, server, errorBuffer);
 }
 
 int Item::getDatGroup()
 {
-   return DataBlockManager::ItemDataType;
+	return DataBlockManager::ItemDataType;
 }
 
 
@@ -187,12 +187,12 @@ int Item::getDatGroup()
 Item::Item()
 {
 	type = ItemObjectType;
-   netFlags.set( Ghostable );
-	itemFlags.set (Visible);
-   isRotate = false;
+	netFlags.set(Ghostable);
+	itemFlags.set(Visible);
+	isRotate = false;
 	isCollideable = false;
-	SimMovement::flags.set (UseElasticity | UseFriction | 
-		UseCurrent | UseDrag );
+	SimMovement::flags.set(UseElasticity | UseFriction |
+		UseCurrent | UseDrag);
 
 	forceMask = -1;
 	throwSource = 0;
@@ -201,8 +201,8 @@ Item::Item()
 	lastRest = true;
 	updatePosTime = 0;
 
-   throwerClientId      = -1;
-   throwerClientLoginId = -1;
+	throwerClientId = -1;
+	throwerClientLoginId = -1;
 }
 
 Item::~Item()
@@ -213,14 +213,14 @@ Item::~Item()
 
 //----------------------------------------------------------------------------
 
-bool Item::processArguments(int argc, const char **argv)
+bool Item::processArguments(int argc, const char** argv)
 {
-   if (argc < 3 || argc > 5) {
-     	Console->printf("Item: <dataFile> <count> <bool pop> [bool rotate] [bool collide]");
-      return false;
-   }
-   if(!Parent::processArguments(1, argv))
-      return false;
+	if (argc < 3 || argc > 5) {
+		Console->printf("Item: <dataFile> <count> <bool pop> [bool rotate] [bool collide]");
+		return false;
+	}
+	if (!Parent::processArguments(1, argv))
+		return false;
 
 	count = atoi(argv[1]);
 
@@ -235,7 +235,7 @@ bool Item::processArguments(int argc, const char **argv)
 		isCollideable = true;
 		deleteOnDestroy = true;
 	}
-   return true;
+	return true;
 }
 
 
@@ -252,95 +252,96 @@ bool Item::hideItem(bool hide)
 	if (manager) {
 		if (hide) {
 			if (SimContainer* container = getContainer())
-				container->removeObject (this);
+				container->removeObject(this);
 		}
 		else {
 			if (!getContainer()) {
-				if (SimContainer* root = findObject(manager,SimRootContainerId,root))
+				if (SimContainer* root = findObject(manager, SimRootContainerId, root))
 					root->addObject(this);
 			}
-         if (getLinearVelocity().x == 0 &&
-             getLinearVelocity().y == 0 &&
-             getLinearVelocity().z == 0)
-            SimMovement::flags.set(AtRest);
-         m_lastSunUpdated = 0;
-      }
+			if (getLinearVelocity().x == 0 &&
+				getLinearVelocity().y == 0 &&
+				getLinearVelocity().z == 0)
+				SimMovement::flags.set(AtRest);
+			m_lastSunUpdated = 0;
+		}
 	}
 	bool hidden = !isVisible();
-	itemFlags.set(Visible,!hide);
+	itemFlags.set(Visible, !hide);
 	return hidden;
 }
 
 
 //---------------------------------------------------------------------------
 
-void Item::onDeleteNotify(SimObject *object)
+void Item::onDeleteNotify(SimObject* object)
 {
-   if(object == throwSource)
-      throwSource = NULL;
-   Parent::onDeleteNotify(object);
+	if (object == throwSource)
+		throwSource = NULL;
+	Parent::onDeleteNotify(object);
 }
 
-void Item::throwObject(GameBase* object,float speed,bool careless)
+void Item::throwObject(GameBase* object, float speed, bool careless)
 {
 	static Random random;
-	Point3F pos,vel;
+	Point3F pos, vel;
 
-   if(throwSource)
-      clearNotify(throwSource);
-      
+	if (throwSource)
+		clearNotify(throwSource);
+
 	throwSource = object;
-   if(throwSource)
-      deleteNotify(throwSource);
-      
+	if (throwSource)
+		deleteNotify(throwSource);
+
 	setOwnerId(object->getId());
 
-   throwerClientId = object->getControlClient();
-   if (throwerClientId != 0) {
-      PlayerManager* pPM = PlayerManager::get(manager);
-      AssertFatal(pPM != NULL, "No Player manager?");
-      PlayerManager::BaseRep* pCR = pPM->findBaseRep(throwerClientId);
-      AssertFatal(pCR != NULL, avar("No client rep for client %d?", throwerClientId));
-      throwerClientLoginId = pCR->loginId;
-   } else {
-      throwerClientLoginId  = -1;
-   }
+	throwerClientId = object->getControlClient();
+	if (throwerClientId != 0) {
+		PlayerManager* pPM = PlayerManager::get(manager);
+		AssertFatal(pPM != NULL, "No Player manager?");
+		PlayerManager::BaseRep* pCR = pPM->findBaseRep(throwerClientId);
+		AssertFatal(pCR != NULL, avar("No client rep for client %d?", throwerClientId));
+		throwerClientLoginId = pCR->loginId;
+	}
+	else {
+		throwerClientLoginId = -1;
+	}
 
 	if (careless) {
 		// Random up vector, no point in throwing directly at
 		// the ground.
 		pos = object->getBoxCenter();
-		vel.set(random.getFloat (-0.733, 0.733),
-			random.getFloat (-0.733, 0.733),
-			random.getFloat (0.5, 1.0));
+		vel.set(random.getFloat(-0.733, 0.733),
+			random.getFloat(-0.733, 0.733),
+			random.getFloat(0.5, 1.0));
 	}
 	else
-		object->getThrowVector(&pos,&vel);
+		object->getThrowVector(&pos, &vel);
 
-   ItemData* datptr = static_cast<ItemData *>(getDatPtr());
+	ItemData* datptr = static_cast<ItemData*>(getDatPtr());
 	vel *= speed / datptr->mass;
 	vel += object->getLinearVelocity();
 	setLinearVelocity(vel);
 
-	setRot(Point3F(0.0f,0.0f,random.getFloat(0.0f,(float)M_2PI)));
+	setRot(Point3F(0.0f, 0.0f, random.getFloat(0.0f, (float)M_2PI)));
 	setPos(pos);
 	setMaskBits(PositionMask | RotationMask | VelocityMask);
 	clearRestFlag();
 	dropTime = manager->getCurrentTime();
-}	
+}
 
 
 //---------------------------------------------------------------------------
 
-bool Item::initResources(GameBase::GameBaseData *dat)
+bool Item::initResources(GameBase::GameBaseData* dat)
 {
-   if(!Parent::initResources(dat))
-      return false;
+	if (!Parent::initResources(dat))
+		return false;
 
 	collisionImage.trigger = !isCollideable;
-   collisionImage.collisionLevel = ShapeCollisionImage::CollideBBox;
+	collisionImage.collisionLevel = ShapeCollisionImage::CollideBBox;
 
-   ItemData* datptr = static_cast<ItemData *>(getDatPtr());
+	ItemData* datptr = static_cast<ItemData*>(getDatPtr());
 
 	if (isGhost()) {
 		collisionMask = ClientCollisionMask;
@@ -363,7 +364,7 @@ bool Item::initResources(GameBase::GameBaseData *dat)
 
 //--------------------------------------------------------------------------- 
 
-void Item::serverProcess (DWORD ct)
+void Item::serverProcess(DWORD ct)
 {
 	if (itemFlags.test(Visible)) {
 		Parent::serverProcess(ct);
@@ -390,7 +391,7 @@ void Item::serverProcess (DWORD ct)
 	}
 }
 
-void Item::clientProcess (DWORD curTime)
+void Item::clientProcess(DWORD curTime)
 {
 	if (itemFlags.test(Visible)) {
 		float dt = getAnimateDelta(curTime);
@@ -403,11 +404,11 @@ void Item::clientProcess (DWORD curTime)
 			// Using setRot, the transform only gets updated when setPos
 			// is called.  Since we are not moving, we need to force it.
 			setPos(getPos());
-         SimMovement::flags.set(AtRest);
+			SimMovement::flags.set(AtRest);
 		}
 	}
 	else
-	   lastAnimateTime = curTime;
+		lastAnimateTime = curTime;
 
 	updateBlackout();
 
@@ -422,10 +423,10 @@ void Item::updateBlackout()
 	// Throw blackout
 	if (throwSource && dropTime + ItemThrowBlackout < manager->getCurrentTime())
 	{
-      clearNotify(throwSource);
-   	throwSource = 0;
-   }
-}	
+		clearNotify(throwSource);
+		throwSource = 0;
+	}
+}
 
 
 //----------------------------------------------------------------------------
@@ -447,7 +448,7 @@ bool Item::onAdd()
 void Item::onRemove()
 {
 	Parent::onRemove();
-}	
+}
 
 void Item::onCollisionNotify(GameBase* object)
 {
@@ -456,7 +457,7 @@ void Item::onCollisionNotify(GameBase* object)
 		scriptOnCollision(object);
 }
 
-void Item::onDisplacement(SimMovement* displacer,const Point3F& delta)
+void Item::onDisplacement(SimMovement* displacer, const Point3F& delta)
 {
 	displacer, delta;
 	if (!isGhost()) {
@@ -473,13 +474,13 @@ bool Item::processCollision(SimMovementInfo* info)
 	// own movement.
 	if (throwSource)
 		for (int i = 0; i < list.size(); i++)
-	     	if (throwSource && list[i].object == throwSource) {
+			if (throwSource && list[i].object == throwSource) {
 				// Should only be one instance of throwSource
 				// in the list.
 				list[i] = list.last();
-	         list.decrement();
+				list.decrement();
 				break;
-	     	}
+			}
 
 	// Attach ourselves to elevators.
 	for (int i = 0; i < list.size(); i++)
@@ -487,31 +488,31 @@ bool Item::processCollision(SimMovementInfo* info)
 			addContact(static_cast<SimMovement*>(list[i].object));
 
 	return Parent::processCollision(info);
-}	
+}
 
 
 //---------------------------------------------------------------------------
 
-bool Item::onSimLightQuery(SimLightQuery * query)
+bool Item::onSimLightQuery(SimLightQuery* query)
 {
 	if (TSLight* lptr = getLight()) {
 		query->count = 1;
 		query->light[0] = lptr;
-	   query->ambientIntensity.set();
+		query->ambientIntensity.set();
 		return true;
 	}
 	query->count = 1;
 	return false;
-}	
+}
 
 bool Item::processQuery(SimQuery* query)
 {
-	switch (query->type){
+	switch (query->type) {
 		onQuery(SimLightQuery);
-      onQuery(SimRenderQueryImage);
+		onQuery(SimRenderQueryImage);
 
-     default:
-      return Parent::processQuery(query);
+	default:
+		return Parent::processQuery(query);
 	}
 }
 
@@ -520,43 +521,44 @@ bool Item::processQuery(SimQuery* query)
 
 TSLight* Item::getLight()
 {
-   ItemData* datptr = static_cast<ItemData *>(getDatPtr());
+	ItemData* datptr = static_cast<ItemData*>(getDatPtr());
 	if (!datptr || datptr->lightType == NoLight)
 		return 0;
 
 	float intensity;
 	switch (datptr->lightType) {
-		case ConstantLight:
-			intensity = 1.0;
-			break;
-		case PulsingLight: {
-			float delta = manager->getCurrentTime() - dropTime;
-			intensity = 0.5 + 0.5 * sin(M_PI * delta / datptr->lightTime);
-			intensity = 0.15 + intensity * 0.85;
-			break;
-		}
-		default:
-			return 0;
+	case ConstantLight:
+		intensity = 1.0;
+		break;
+	case PulsingLight: {
+		float delta = manager->getCurrentTime() - dropTime;
+		intensity = 0.5 + 0.5 * sin(M_PI * delta / datptr->lightTime);
+		intensity = 0.15 + intensity * 0.85;
+		break;
+	}
+	default:
+		return 0;
 	}
 
-   if (m_fading != ShapeBase::NotFading) {
-      float factor;
-      if (m_fading == FadingOut) {
-         factor = float(wg->currentTime - m_fadeStarted) / float(csm_fadeLength);
-         // Bail if we're _really faded...
-         if (factor > 1.0)
-            factor = 1.0;
-      } else {
-         factor = 1.0f - float(wg->currentTime - m_fadeStarted) / float(csm_fadeLength);
-         // Bail if we're _really faded...
-         if (factor < 0.0) {
-            factor = 0.0;
-            m_fading = NotFading;
-         }
-      }
+	if (m_fading != ShapeBase::NotFading) {
+		float factor;
+		if (m_fading == FadingOut) {
+			factor = float(wg->currentTime - m_fadeStarted) / float(csm_fadeLength);
+			// Bail if we're _really faded...
+			if (factor > 1.0)
+				factor = 1.0;
+		}
+		else {
+			factor = 1.0f - float(wg->currentTime - m_fadeStarted) / float(csm_fadeLength);
+			// Bail if we're _really faded...
+			if (factor < 0.0) {
+				factor = 0.0;
+				m_fading = NotFading;
+			}
+		}
 
-      intensity *= 1.0f - factor;
-   }
+		intensity *= 1.0f - factor;
+	}
 
 	if (!light) {
 		light = new TSLight;
@@ -565,7 +567,7 @@ TSLight* Item::getLight()
 	}
 
 	light->setIntensity(datptr->lightColor.x * intensity,
-		datptr->lightColor.y * intensity,datptr->lightColor.z * intensity);
+		datptr->lightColor.y * intensity, datptr->lightColor.z * intensity);
 	light->setPosition(getTransform().p);
 	return light;
 }
@@ -573,49 +575,49 @@ TSLight* Item::getLight()
 
 //---------------------------------------------------------------------------
 
-DWORD Item::packUpdate(Net::GhostManager *gm, DWORD mask, BitStream *stream)
+DWORD Item::packUpdate(Net::GhostManager* gm, DWORD mask, BitStream* stream)
 {
 	Parent::packUpdate(gm,
-		mask & ~(PositionMask | RotationMask | VelocityMask),stream);
+		mask & ~(PositionMask | RotationMask | VelocityMask), stream);
 
 	if (stream->writeFlag(mask & InfoMask)) {
-      packDatFile(stream);
-      if (stream->writeFlag(sensorKey != -1))
-         stream->writeInt(sensorKey, 7);
+		packDatFile(stream);
+		if (stream->writeFlag(sensorKey != -1))
+			stream->writeInt(sensorKey, 7);
 
-		int ghost = throwSource? gm->getGhostIndex(throwSource): -1;
+		int ghost = throwSource ? gm->getGhostIndex(throwSource) : -1;
 		if (stream->writeFlag(ghost != -1))
-	     stream->writeInt(ghost, 10);
+			stream->writeInt(ghost, 10);
 		stream->writeFlag(isRotate);
 		stream->writeFlag(isCollideable);
 	}
 	if (stream->writeFlag(mask & RotationMask))
-		stream->writeFloat(getRot().z / M_2PI,8);
+		stream->writeFloat(getRot().z / M_2PI, 8);
 	if (stream->writeFlag(mask & PositionMask)) {
-		stream->write(sizeof( Point3F ), &getPos());
+		stream->write(sizeof(Point3F), &getPos());
 	}
 	if (!stream->writeFlag(isAtRest() || isRotate)) {
 		if (stream->writeFlag(mask & VelocityMask)) {
 			Point3F vel = getLinearVelocity();
-			stream->write(sizeof( Point3F ), &vel);
+			stream->write(sizeof(Point3F), &vel);
 		}
 	}
-   return 0;
+	return 0;
 }
 
-void Item::unpackUpdate(Net::GhostManager *gm, BitStream *stream)
+void Item::unpackUpdate(Net::GhostManager* gm, BitStream* stream)
 {
-	Parent::unpackUpdate(gm,stream);
+	Parent::unpackUpdate(gm, stream);
 
 	if (stream->readFlag()) {
 		AssertFatal(manager == 0,
 			"Item::unpackUpdate: Can only update shape type on initial packet");
-      unpackDatFile(stream);
-      if (stream->readFlag())
-         sensorKey = stream->readInt(7);
+		unpackDatFile(stream);
+		if (stream->readFlag())
+			sensorKey = stream->readInt(7);
 		if (stream->readFlag()) {
-	      if (SimNetObject* obj = gm->resolveGhost(stream->readInt(10)))
-		      throwSource = dynamic_cast<GameBase*>(obj);
+			if (SimNetObject* obj = gm->resolveGhost(stream->readInt(10)))
+				throwSource = dynamic_cast<GameBase*>(obj);
 		}
 		isRotate = stream->readFlag();
 		isCollideable = stream->readFlag();
@@ -623,7 +625,7 @@ void Item::unpackUpdate(Net::GhostManager *gm, BitStream *stream)
 
 	bool gotRotation = stream->readFlag();
 	if (gotRotation)
-		setRot(Point3F(0,0,M_2PI * stream->readFloat(8)));
+		setRot(Point3F(0, 0, M_2PI * stream->readFloat(8)));
 
 	if (stream->readFlag()) {
 		Point3F vec;
@@ -638,7 +640,7 @@ void Item::unpackUpdate(Net::GhostManager *gm, BitStream *stream)
 		}
 	if (stream->readFlag()) {
 		SimMovement::flags.set(AtRest);
-		lVelocity.set(0,0,0);
+		lVelocity.set(0, 0, 0);
 	}
 	else {
 		if (stream->readFlag()) {
@@ -654,68 +656,68 @@ void Item::unpackUpdate(Net::GhostManager *gm, BitStream *stream)
 
 void Item::initPersistFields()
 {
-   Parent::initPersistFields();
-   addField("rotates", TypeBool, Offset(isRotate, Item));
-   addField("collideable", TypeBool, Offset(isCollideable, Item));
-   addField("count", TypeInt, Offset(count, Item));
+	Parent::initPersistFields();
+	addField("rotates", TypeBool, Offset(isRotate, Item));
+	addField("collideable", TypeBool, Offset(isCollideable, Item));
+	addField("count", TypeInt, Offset(count, Item));
 }
 
 //----------------------------------------------------------------------------
 
-Persistent::Base::Error Item::read(StreamIO &sio, int, int)
+Persistent::Base::Error Item::read(StreamIO& sio, int, int)
 {
 	int version;
 	sio.read(&version);
 
-	Parent::read (sio, 0, 0);
+	Parent::read(sio, 0, 0);
 
 	sio.read(&isRotate);
 	sio.read(&count);
 
-	return (sio.getStatus() == STRM_OK)? Ok: ReadError;
+	return (sio.getStatus() == STRM_OK) ? Ok : ReadError;
 }
 
-Persistent::Base::Error Item::write(StreamIO &sio, int, int)
+Persistent::Base::Error Item::write(StreamIO& sio, int, int)
 {
 	int version = 0;
 	sio.write(version);
 
-	Parent::write (sio, 0, 0);
+	Parent::write(sio, 0, 0);
 
 	sio.write(isRotate);
 	sio.write(count);
 
-	return (sio.getStatus() == STRM_OK)? Ok: WriteError;
+	return (sio.getStatus() == STRM_OK) ? Ok : WriteError;
 }
 
 bool
 Item::onSimRenderQueryImage(SimRenderQueryImage* query)
 {
-   if (isAtRest() == false && m_lastSunUpdated + 250 < wg->currentTime) {
-      float sunAttenuation;
-      ColorF positionalColor;
-      bool overrideSun = getPositionalColor(positionalColor, sunAttenuation);
-      updateSunOverride(overrideSun, sunAttenuation, positionalColor);
-      m_lastSunUpdated = wg->currentTime;
-   }
+	if (isAtRest() == false && m_lastSunUpdated + 250 < wg->currentTime) {
+		float sunAttenuation;
+		ColorF positionalColor;
+		bool overrideSun = getPositionalColor(positionalColor, sunAttenuation);
+		updateSunOverride(overrideSun, sunAttenuation, positionalColor);
+		m_lastSunUpdated = wg->currentTime;
+	}
 
-   return Parent::processQuery(query);
+	return Parent::processQuery(query);
 }
 
 Int32
 Item::getDamageId()
 {
-   // Check to make sure that the client that owns the number is
-   //  the correct client...
-   if (throwerClientId == 0)
-      return 0;
+	// Check to make sure that the client that owns the number is
+	//  the correct client...
+	if (throwerClientId == 0)
+		return 0;
 
-   PlayerManager* pPM = PlayerManager::get(manager);
-   AssertFatal(pPM, "No playermanager");
-   PlayerManager::BaseRep* pCR = pPM->findBaseRep(throwerClientId);
+	PlayerManager* pPM = PlayerManager::get(manager);
+	AssertFatal(pPM, "No playermanager");
+	PlayerManager::BaseRep* pCR = pPM->findBaseRep(throwerClientId);
 
-   if (pCR == NULL || pCR->loginId != throwerClientLoginId)
-      return 0;
-   
-   return throwerClientId;
+	if (pCR == NULL || pCR->loginId != throwerClientLoginId)
+		return 0;
+
+	return throwerClientId;
 }

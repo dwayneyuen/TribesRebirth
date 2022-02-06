@@ -5,6 +5,7 @@
 #include "tsfx.h"
 #include "netGhostManager.h"
 #include "feardcl.h"
+
 SoundProfileData::SoundProfileData()
 {
    profile.flags = 0;
